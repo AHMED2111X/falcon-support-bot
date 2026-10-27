@@ -1,0 +1,15 @@
+# 🔐 أسرار — لا تُنشر أبداً
+bot_token.txt
+*.token
+.env
+
+# سجلات وحالة وقت التشغيل
+*.log
+.state.json
+.bot.lock
+.notify.state
+
+# نظام التشغيل
+.DS_Store
+Thumbs.db
+desktop.ini
