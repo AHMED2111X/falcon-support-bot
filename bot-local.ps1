@@ -143,7 +143,7 @@ function Test-SpamMessage($m) {
 # ------------------------------------------------------------------ نصوص الردود
 function Get-Template {
 @"
-🛠️ *وصلت مشكلتك* — شكراً لك 👋
+🛠️ <b>وصلت مشكلك</b> — شكراً لك 👋
 
 لتسريع الحل، أرسل هذه التفاصيل:
 
@@ -159,7 +159,7 @@ function Get-Template {
 
 function Get-Rules {
 @"
-📋 *قواعد مجموعة الدعم*
+📋 <b>قواعد مجموعة الدعم</b>
 
 ✅ اكتب مشكلتك بالتفصيل (نص عادي فقط).
 ❌ يُحذف فوراً: أي رابط أو معرّف تيليجرام أو رسالة سبام.
@@ -174,21 +174,21 @@ function Get-Rules {
 }
 
 function Get-Links {
-    if (-not $Links -or $Links.Count -eq 0) { return "🔗 *روابط FALCON*`n`nلم تُضبط الروابط بعد." }
-    $t = "🔗 *روابط FALCON*`n"
+    if (-not $Links -or $Links.Count -eq 0) { return "🔗 <b>روابط FALCON</b>`n`nلم تُضبط الروابط بعد." }
+    $t = "🔗 <b>روابط FALCON</b>`n"
     foreach ($l in $Links) { $t += "`n• $($l.title) — $($l.url)" }
     return $t
 }
 
 function Get-Start {
 @"
-🛡️ *FALCON SUPPORT*
-*مجموعة الدعم الرسمية — FALCON STORE ROOT*
+🛡️ <b>FALCON SUPPORT</b>
+<i>مجموعة الدعم الرسمية — FALCON STORE ROOT</i>
 
 أهلاً بك 👋
 اكتب مشكلتك هنا وسأجمع لك البيانات المطلوبة، ويرد عليك المشرف.
 
-💡 *لماذا هذه المجموعة؟*
+💡 <b>لماذا هذه المجموعة؟</b>
 لأن أسئلة ومشكلات المستخدمين كانت تتشتّت في التعليقات والرسائل الخاصة، فتفقد غيرها وتضيع الحلول القيّمة. هنا مكان واحد والحل يبقى للجميع.
 
 /rules — القواعد
@@ -265,8 +265,8 @@ while ($true) {
             if ($text -like "/*") {
                 $cmd = ($text -split "\s+")[0].ToLower().Replace("@falcon_verify_2026_bot", "")
                 switch ($cmd) {
-                    "/links" { $null = Tg "sendMessage" @{ chat_id = "$($chat.id)"; text = (Get-Links); parse_mode = "Markdown" }; continue }
-                    "/rules" { $null = Tg "sendMessage" @{ chat_id = "$($chat.id)"; text = (Get-Rules); parse_mode = "Markdown" }; continue }
+                    "/links" { $null = Tg "sendMessage" @{ chat_id = "$($chat.id)"; text = (Get-Links); parse_mode = "HTML" }; continue }
+                    "/rules" { $null = Tg "sendMessage" @{ chat_id = "$($chat.id)"; text = (Get-Rules); parse_mode = "HTML" }; continue }
                     "/id" {
                         $un = if ($from.username) { "@$($from.username)" } else { "—" }
                         $null = Tg "sendMessage" @{ chat_id = "$($chat.id)"; text = "🆔 معرّفك: ``$fromId```n👤 اسمك: $($from.first_name)`n🔗 $un" }
@@ -318,7 +318,7 @@ while ($true) {
                 if ($state.seen.ContainsKey($fromId)) { $last = [int64]$state.seen[$fromId] }
                 if (([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds() - $last) -gt 1800000) {
                     $state.seen[$fromId] = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
-                    $null = Tg "sendMessage" @{ chat_id = $ck; text = (Get-Template); parse_mode = "Markdown"; reply_to_message_id = "$($m.message_id)" }
+                    $null = Tg "sendMessage" @{ chat_id = $ck; text = (Get-Template); parse_mode = "HTML"; reply_to_message_id = "$($m.message_id)" }
                 }
             }
         }

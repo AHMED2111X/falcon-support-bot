@@ -20,14 +20,14 @@ function Tg([string]$m, $b) {
 }
 
 $welcome = @"
-🛡️ *FALCON SUPPORT*
-*مجموعة الدعم الرسمية — FALCON STORE ROOT*
+🛡️ <b>FALCON SUPPORT</b>
+<i>مجموعة الدعم الرسمية — FALCON STORE ROOT</i>
 
 أهلاً بك 👋
-هنا مكانك لعرض أي مشكلة في *FALCON INTEGRITY FIX*، وسنتكفّل بها بإذن الله.
+هنا مكانك لعرض أي مشكلة في <b>FALCON INTEGRITY FIX</b>، وسنتكفّل بها بإذن الله.
 
 ━━━━━━━━━━━━━━━━━━━━
-📋 *الرجاء إرسال هذه المعلومات*
+📋 <b>الرجاء إرسال هذه المعلومات</b>
 ━━━━━━━━━━━━━━━━━━━━
 1️⃣ موديل الجهاز وإصدار أندرويد
 2️⃣ نوع مدير الروت (Magisk / KernelSU) ونسخته
@@ -36,7 +36,7 @@ $welcome = @"
 5️⃣ 📎 صورة للخطأ إن وُجدت
 
 ━━━━━━━━━━━━━━━━━━━━
-⛔ *قواعد المجموعة*
+⛔ <b>قواعد المجموعة</b>
 ━━━━━━━━━━━━━━━━━━━━
 • يُحذف فوراً: أي رابط أو معرّف تيليجرام أو رسالة سبام
 • ⏱️ رسالة واحدة كل 10 ثوانٍ لكل شخص
@@ -44,7 +44,7 @@ $welcome = @"
 • 🚫 لا إعلانات ولا عروض ولا روابط دعوة
 
 ━━━━━━━━━━━━━━━━━━━━
-📎 *أوامر سريعة*
+📎 <b>أوامر سريعة</b>
 ━━━━━━━━━━━━━━━━━━━━
 /links  روابط المشروع  ·  /rules  القواعد  ·  /id  معرّفك
 
@@ -55,7 +55,7 @@ $keyboard = '{"inline_keyboard":[[{"text":"\ud83d\udce1 القناة الرسم�
 
 Write-Host "=== إرسال رسالة الترحيب ===" -ForegroundColor Cyan
 # نبني الـJSON يدوياً لضمان بنية لوحة الأزرار (PowerPress يسطّح المصفوفات المتداخلة)
-$payload = '{"chat_id":"' + $Gid + '","parse_mode":"Markdown","reply_markup":' + $keyboard + ',"text":' + (($welcome | ConvertTo-Json -Compress)) + '}'
+$payload = '{"chat_id":"' + $Gid + '","parse_mode":"HTML","reply_markup":' + $keyboard + ',"text":' + (($welcome | ConvertTo-Json -Compress)) + '}'
 $bytes = [System.Text.Encoding]::UTF8.GetBytes($payload)
 $r = Invoke-RestMethod -Uri "$api/sendMessage" -Method Post -ContentType "application/json; charset=utf-8" -Body $bytes -TimeoutSec 60
 if (-not $r.ok) { Write-Host "❌ فشل: $($r.description)" -ForegroundColor Red; exit 1 }

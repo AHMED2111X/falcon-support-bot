@@ -128,7 +128,7 @@ function isSpamMessage(msg) {
 // --------------------------------------------------------------- نصوص الردود
 function templateText() {
   return [
-    "🛠️ *وصلت مشكلتك* — شكراً لك 👋",
+    "🛠️ <b>وصلت مشكلك</b> — شكراً لك 👋",
     "",
     "لتسريع الحل، أرسل هذه التفاصيل:",
     "",
@@ -144,7 +144,7 @@ function templateText() {
 
 function rulesText(cfg) {
   return [
-    "📋 *قواعد مجموعة الدعم*",
+    "📋 <b>قواعد مجموعة الدعم</b>",
     "",
     "✅ اكتب مشكلتك بالتفصيل (نص عادي فقط).",
     "❌ يُحذف فوراً: أي رابط أو معرّف تيليجرام أو رسالة سبام.",
@@ -172,13 +172,13 @@ function linksText(cfg) {
 
 function startText(cfg) {
   return [
-    "🛡️ *FALCON SUPPORT*",
-    "*مجموعة الدعم الرسمية — FALCON STORE ROOT*",
+    "🛡️ <b>FALCON SUPPORT</b>",
+    "<i>مجموعة الدعم الرسمية — FALCON STORE ROOT</i>",
     "",
     "أهلاً بك 👋",
     "اكتب مشكلتك هنا وسأجمع لك البيانات المطلوبة، ويرد عليك المشرف.",
     "",
-    "💡 *لماذا هذه المجموعة؟*",
+    "💡 <b>لماذا هذه المجموعة؟</b>",
     "لأن أسئلة ومشكلات المستخدمين كانت تتشتّت في التعليقات والرسائل الخاصة، فتفقد غيرها وتضيع الحلول القيّمة. هنا مكان واحد والحل يبقى للجميع.",
     "",
     "/rules — القواعد",
@@ -245,11 +245,11 @@ async function handleUpdate(cfg, update, env) {
     const cmd = cmdRaw.split("@")[0].toLowerCase();
 
     if (cmd === "/links") {
-      await tg(cfg, "sendMessage", { chat_id: chat.id, text: linksText(cfg), parse_mode: "Markdown" });
+      await tg(cfg, "sendMessage", { chat_id: chat.id, text: linksText(cfg), parse_mode: "HTML" });
       return;
     }
     if (cmd === "/rules") {
-      await tg(cfg, "sendMessage", { chat_id: chat.id, text: rulesText(cfg), parse_mode: "Markdown" });
+      await tg(cfg, "sendMessage", { chat_id: chat.id, text: rulesText(cfg), parse_mode: "HTML" });
       return;
     }
     if (cmd === "/id" && from.id) {
@@ -325,7 +325,7 @@ async function handleUpdate(cfg, update, env) {
     await tg(cfg, "sendMessage", {
       chat_id: chat.id,
       text: templateText(),
-      parse_mode: "Markdown",
+      parse_mode: "HTML",
       reply_to_message_id: msg.message_id,
     });
   }

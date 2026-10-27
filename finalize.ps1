@@ -120,7 +120,7 @@ if ($SendWelcome) {
 🔗 /links — روابط المشروع
 "@
     $welcome = if (Test-Path "$PSScriptRoot\welcome_message.txt") { (Get-Content "$PSScriptRoot\welcome_message.txt" -Raw) } else { $welcomeFallback }
-    $r = Tg "sendMessage" @{ chat_id = $Gid; text = $welcome; parse_mode = "Markdown" }
+    $r = Tg "sendMessage" @{ chat_id = $Gid; text = $welcome; parse_mode = "HTML" }
     Write-Host $(if ($r.ok) { "  ✅ رسالة الترحيب" } else { "  ⚠️ ترحيب: $($r.description)" }) -ForegroundColor $(if ($r.ok) { "Green" } else { "Yellow" })
 }
 
