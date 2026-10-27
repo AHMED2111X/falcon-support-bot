@@ -1,4 +1,4 @@
-# 🛡️ FALCON SUPPORT BOT — بوت الدعم لقناة FALCON_KERNEL_PRO
+# 🦅 FALCON SUPPORT BOT — بوت الدعم لقناة FALCON_KERNEL_PRO
 
 بوت تيليجرام يعمل **24/7** بدون خادم (Cloudflare Worker) أو محلياً (PowerShell).
 
